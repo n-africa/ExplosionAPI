@@ -11,54 +11,51 @@ namespace ExplosionAPI.Controllers
     [ApiController]
     public class ExplosionController : ControllerBase
     {
-        public class Digits
+        [HttpGet]
+        public string Explode(string s)
         {
-            [HttpGet]
-            public static string Explode(string s)
+            var initialString = "";
+
+            for (var index = 0; index < s.Length; index++)
             {
-                var initialString = "";
+                var numberOfCharacter = s[index].ToString();
 
-                for (var index = 0; index < s.Length; index++)
+                var numbers = Int32.Parse(numberOfCharacter);
+
+                for (var otherIndex = 0; otherIndex < numbers; otherIndex++)
                 {
-                    var numberOfCharacter = s[index].ToString();
-
-                    var numbers = Int32.Parse(numberOfCharacter);
-
-                    for (var otherIndex = 0; otherIndex < numbers; otherIndex++)
-                    {
-                        initialString += numberOfCharacter;
-                    }
+                    initialString += numberOfCharacter;
                 }
-                return initialString;
             }
+            return initialString;
         }
-        public class Accumul
+    }
+    public class MumblingController : ControllerBase
+    {
+        [HttpGet]
+        public String Accum(string input)
         {
-            [HttpGet]
-            public static String Accum(string input)
+            var answer = "";
+            for (var index = 0; index < input.Length; index++)
             {
-                var answer = "";
-                for (var index = 0; index < input.Length; index++)
+                var currentCharacter = input[index];
+                for (var repeatCount = 0; repeatCount < index + 1; repeatCount++)
                 {
-                    var currentCharacter = input[index];
-                    for (var repeatCount = 0; repeatCount < index + 1; repeatCount++)
+                    if (repeatCount == 0)
                     {
-                        if (repeatCount == 0)
-                        {
-                            answer += Char.ToUpper(currentCharacter);
-                        }
-                        else
-                        {
-                            answer += Char.ToLower(currentCharacter);
-                        }
+                        answer += Char.ToUpper(currentCharacter);
                     }
-                    if (index < input.Length - 1)
+                    else
                     {
-                        answer += "-";
+                        answer += Char.ToLower(currentCharacter);
                     }
                 }
-                return answer;
+                if (index < input.Length - 1)
+                {
+                    answer += "-";
+                }
             }
+            return answer;
         }
     }
 }
